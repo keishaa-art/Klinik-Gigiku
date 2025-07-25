@@ -13,6 +13,7 @@ class farmasi extends Model
         'kandungan',
         'bentuk_obat',
         'satuan',
+        'pieces',
         'tgl_produksi',
         'tgl_kadaluarsa',
         'harga',

@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('nama_obat');
             $table->string('kode_obat');
             $table->string('kandungan');
-            $table->string('bentuk_obat');
-            $table->string('satuan');
+            $table->enum('bentuk_obat', ['Obat Kumur', 'Obat Oles', 'Obat Minum', 'Obat Suntik']);
+            $table->integer('satuan');
+            $table->integer('pieces');
             $table->date('tgl_produksi');
             $table->date('tgl_kadaluarsa');
             $table->integer('harga');
