@@ -4,10 +4,12 @@
 @section('konten')  
 
   <!-- Hero -->
+  <div class="w-full p-8 min-h-[250px] ">
   <section class="bg-gradient-to-r from-soft to-accent py-12 text-center text-T2">
     <h1 class="text-3xl font-bold">GIGIKU DENTAL CLINIC</h1>
     <p class="mt-2 max-w-2xl mx-auto text-left">Our mission is to create trust comfort, and serenity for patients in getting best dental treatments and medications. 20.000+ cases has been handled well by our professional dentist.</p>
     <button class="mt-4 px-6 py-2 bg-T1 text-white font-semibold rounded hover:bg-gray-100">Learn More</button>
+   </div>
   </section>
 
   <!-- Stats -->

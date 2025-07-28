@@ -7,5 +7,5 @@ Route::get('/', function () {
 
 });
 Route::get('/reservasi', function () {
-    return view('reservasi.reservasi');
+    return view('reservasi');
 });
