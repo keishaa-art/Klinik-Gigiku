@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Farmasi\FarmasiController;
+use App\Http\Controllers\Admin\PemeriksaanController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,4 +20,5 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('farmasi', FarmasiController::class);
+Route::resource('pemeriksaan', PemeriksaanController::class);
 require __DIR__.'/auth.php';
