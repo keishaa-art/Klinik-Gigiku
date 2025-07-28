@@ -20,5 +20,4 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('farmasi', FarmasiController::class);
-Route::resource('pemeriksaan', PemeriksaanController::class);
 require __DIR__.'/auth.php';
