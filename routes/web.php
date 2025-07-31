@@ -9,3 +9,6 @@ Route::get('/', function () {
 Route::get('/reservasi', function () {
     return view('reservasi');
 });
+Route::get('/1', function () {
+    return view('cabang');
+});
