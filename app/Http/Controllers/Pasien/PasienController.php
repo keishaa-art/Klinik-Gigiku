@@ -1,8 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pasien;
 
-use App\Models\pasien;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,7 +12,7 @@ class PasienController extends Controller
      */
     public function index()
     {
-        //
+        return view('Pasien.dashboard');
     }
 
     /**
@@ -35,7 +34,7 @@ class PasienController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(pasien $pasien)
+    public function show(string $id)
     {
         //
     }
@@ -43,7 +42,7 @@ class PasienController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(pasien $pasien)
+    public function edit(string $id)
     {
         //
     }
@@ -51,7 +50,7 @@ class PasienController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, pasien $pasien)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -59,7 +58,7 @@ class PasienController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(pasien $pasien)
+    public function destroy(string $id)
     {
         //
     }

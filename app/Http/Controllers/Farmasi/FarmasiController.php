@@ -13,8 +13,7 @@ class FarmasiController extends Controller
      */
     public function index()
     {
-        $farmasi = Farmasi::get();
-        return view('Farmasi.index', compact('farmasi'));
+        return view('Farmasi.dashboard');
     }
 
     /**
@@ -22,7 +21,7 @@ class FarmasiController extends Controller
      */
     public function create()
     {
-        return view('Farmasi.create');
+        // return view('Farmasi.create');
     }
 
     /**
@@ -30,21 +29,21 @@ class FarmasiController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate ([
-            'nama_obat' => 'required|max:255', 
-            'kode_obat' => 'required',  
-            'kandungan' => 'required',  
-            'bentuk_obat' => 'required',  
-            'satuan' => 'required',  
-            'pieces' => 'required',  
-            'tgl_produksi' => 'required',  
-            'tgl_kadaluarsa' => 'required',      
-        ]);
+        // $validated = $request->validate ([
+        //     'nama_obat' => 'required|max:255', 
+        //     'kode_obat' => 'required',  
+        //     'kandungan' => 'required',  
+        //     'bentuk_obat' => 'required',  
+        //     'satuan' => 'required',  
+        //     'pieces' => 'required',  
+        //     'tgl_produksi' => 'required',  
+        //     'tgl_kadaluarsa' => 'required',      
+        // ]);
 
-        $validated['harga'] = $validated['satuan'] * $validated['pieces'];
+        // $validated['harga'] = $validated['satuan'] * $validated['pieces'];
 
-        farmasi::create($validated);
-        return redirect()->route('farmasi.index');
+        // farmasi::create($validated);
+        // return redirect()->route('farmasi.index');
     }
 
     /**
@@ -60,8 +59,8 @@ class FarmasiController extends Controller
      */
     public function edit(string $id)
     {
-        $farmasi = Farmasi::findOrFail($id);
-        return view('Farmasi.edit', compact('farmasi'));
+        // $farmasi = Farmasi::findOrFail($id);
+        // return view('Farmasi.edit', compact('farmasi'));
     }
 
     /**
@@ -69,22 +68,22 @@ class FarmasiController extends Controller
      */
     public function update(Request $request, farmasi $farmasi)
     {
-        $validated = $request->validate([
-            'nama_obat' => 'required|max:255', 
-            'kode_obat' => 'required',  
-            'kandungan' => 'required',  
-            'bentuk_obat' => 'required',  
-            'satuan' => 'required',  
-            'pieces' => 'required',  
-            'tgl_produksi' => 'required',  
-            'tgl_kadaluarsa' => 'required',    
-        ]);
+        // $validated = $request->validate([
+        //     'nama_obat' => 'required|max:255', 
+        //     'kode_obat' => 'required',  
+        //     'kandungan' => 'required',  
+        //     'bentuk_obat' => 'required',  
+        //     'satuan' => 'required',  
+        //     'pieces' => 'required',  
+        //     'tgl_produksi' => 'required',  
+        //     'tgl_kadaluarsa' => 'required',    
+        // ]);
 
-        $validated['harga'] = $validated['satuan'] * $validated['pieces'];
+        // $validated['harga'] = $validated['satuan'] * $validated['pieces'];
 
-        $farmasi->update($validated);
+        // $farmasi->update($validated);
 
-        return redirect()->route('farmasi.index');
+        // return redirect()->route('farmasi.index');
     }
 
     /**
@@ -92,7 +91,7 @@ class FarmasiController extends Controller
      */
     public function destroy(farmasi $farmasi)
     {
-        $farmasi->delete();
-        return redirect()->route('farmasi.index');
+        // $farmasi->delete();
+        // return redirect()->route('farmasi.index');
     }
 }
