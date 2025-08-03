@@ -10,7 +10,7 @@
         <h4>Tambah Data</h4>
     </div>
 
-    <form action="{{ route('pemeriksaan.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.pemeriksaan.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
             <label for="nama">Nama</label>
@@ -33,7 +33,7 @@
         </div>
 
         <button type="submit" class="btn btn-success mt-3">Simpan</button>
-        <a href="{{ route('pemeriksaan.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('admin.pemeriksaan.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </body>
 </html>

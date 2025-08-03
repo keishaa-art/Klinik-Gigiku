@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rules;
+use App\Mail\EmailVerificationOtp;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Validation\Rules;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\Mail;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Illuminate\Auth\Events\Registered;
 
 class RegisteredUserController extends Controller
 {
@@ -19,7 +21,7 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
-        return view('auth.register');
+        return view('auth.login-register');
     }
 
     /**
@@ -33,18 +35,35 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required', 'string', 'in:Pasien'],
+            'alamat' => ['nullable', 'string', 'max:255'],
+            // 'no_telepon' => ['nullable', 'string', 'max:15'],
+            'no_telepon' => ['nullable', 'regex:/^[0-9\+\-\(\)\s]+$/', 'max:15'],
+            'spesialis' => ['nullable', 'string', 'max:50'],
+            'tgl_lahir' => ['nullable', 'date'],
+            'jenis_kelamin' => ['nullable', 'string', 'in:Laki-laki,Perempuan'],
         ]);
 
+        $otp = rand(100000, 999999);
+        $nip = 'PSN' . rand(1000, 9999);
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'nip' => $nip,
+            'role' => 'Pasien',
+            'alamat' => $request->alamat,
+            'no_telepon' => $request->no_telepon,
+            'spesialis' => $request->spesialis,
+            'tgl_lahir' => $request->tgl_lahir,
+            'jenis_kelamin' => $request->jenis_kelamin,
+            'email_verification_code' => $otp,
         ]);
-
-        event(new Registered($user));
+        // event(new Registered($user));
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        Mail::to($user->email)->send(new EmailVerificationOtp($otp));
+         return redirect()->route('verification.otp.form');
     }
 }

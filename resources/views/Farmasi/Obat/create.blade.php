@@ -10,7 +10,7 @@
         <h4>Tambah Obat</h4>
     </div>
 
-    <form action="{{ route('farmasi.store') }}" method="POST">
+    <form action="{{ route('farmasi.obat.store') }}" method="POST">
         @csrf
         <div class="form-group">
             <label for="nama_obat">Nama Obat</label>
@@ -58,7 +58,7 @@
         </div>
 
         <button type="submit" class="btn btn-success mt-3">Simpan</button>
-        <a href="{{ route('farmasi.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('farmasi.obat.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </body>
 </html>

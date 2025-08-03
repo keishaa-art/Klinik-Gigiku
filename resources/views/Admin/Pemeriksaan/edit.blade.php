@@ -10,7 +10,7 @@
         <h4>Edit Data</h4>
     </div>
 
-    <form action="{{ route('pemeriksaan.update', $pemeriksaan->id) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('admin.pemeriksaan.update', $pemeriksaan->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
@@ -40,7 +40,7 @@
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">Update</button>
-        <a href="{{ route('pemeriksaan.index') }}" class="btn btn-secondary">Kembali</a>
+        <a href="{{ route('admin.pemeriksaan.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </body>
 </html>

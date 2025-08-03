@@ -13,7 +13,7 @@ class PemeriksaanController extends Controller
      */
     public function index()
     {
-       $pemeriksaan = Pemeriksaan::get();
+        $pemeriksaan = Pemeriksaan::get();
         return view('Admin.Pemeriksaan.index', compact('pemeriksaan')); 
     }
 
