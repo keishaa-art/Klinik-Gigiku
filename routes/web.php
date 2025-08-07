@@ -76,4 +76,4 @@ Route::middleware(['auth', 'PasienMiddleware'])->prefix('pasien')->name('pasien.
     Route::get('/', [PasienController::class, 'index'])->name('dashboard');
 });
 
-require __DIR__.'/auth.php';
+require _DIR_.'/auth.php';
