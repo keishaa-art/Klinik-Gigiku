@@ -7,8 +7,14 @@ Route::get('/', function () {
 
 });
 Route::get('/reservasi', function () {
-    return view('reservasi');
+    return view('cabang');
 });
 Route::get('/1', function () {
-    return view('cabang');
+    return view('reservasi');
+});
+Route::get('/2', function () {
+    return view('jadwal');
+});
+Route::get('/3', function () {
+    return view('keluhan');
 });

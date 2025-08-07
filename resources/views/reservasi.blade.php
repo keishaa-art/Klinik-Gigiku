@@ -157,7 +157,7 @@
 
 <!-- tombol selanjutnya -->
 <div class="mt-8 flex justify-center">
-  <a href="index2.html" id="btn-selanjutnya" class="w-[320px] mb-8 px-6 py-3 rounded-xl bg-gray-400 text-white text-lg text-center transition hover:opacity-80 cursor-not-allowed pointer-events-none">
+  <a href="2" id="btn-selanjutnya" class="w-[320px] mb-8 px-6 py-3 rounded-xl bg-gray-400 text-white text-lg text-center transition hover:opacity-80 cursor-not-allowed pointer-events-none">
     Selanjutnya
   </a>
 </div>
