@@ -58,6 +58,7 @@ Route::middleware(['auth', 'AdminMiddleware'])->prefix('admin')->name('admin.')-
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('pemeriksaan', PemeriksaanController::class);
     Route::resource('cabang', CabangController::class);
+    
 });
 
 //! Dokter Routes
