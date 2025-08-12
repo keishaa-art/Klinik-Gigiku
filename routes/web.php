@@ -58,6 +58,7 @@ Route::middleware(['auth', 'AdminMiddleware'])->prefix('admin')->name('admin.')-
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('pemeriksaan', PemeriksaanController::class);
     Route::resource('cabang', CabangController::class);
+    
 });
 
 //! Dokter Routes
@@ -75,6 +76,7 @@ Route::middleware(['auth', 'FarmasiMiddleware'])->prefix('farmasi')->name('farma
 Route::middleware(['auth', 'PasienMiddleware'])->prefix('pasien')->name('pasien.')->group(function () {
     Route::get('/', [PasienController::class, 'index'])->name('dashboard');
 });
+
 
 
 require __DIR__.'/auth.php';
