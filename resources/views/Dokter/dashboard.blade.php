@@ -47,7 +47,7 @@
       <button onclick="showTab('jadwal')" class="tab-btn bg-[#FFE6E1] text-[#C04C4C] px-4 py-2 rounded shadow hover:bg-[#F0BAAF]">Jadwal Reservasi</button>
       <button onclick="showTab('profil')" class="tab-btn bg-[#FFE6E1] text-[#C04C4C] px-4 py-2 rounded shadow hover:bg-[#F0BAAF]">Profil Dokter</button>
       <button onclick="showTab('riwayat')" class="tab-btn bg-[#FFE6E1] text-[#C04C4C] px-4 py-2 rounded shadow hover:bg-[#F0BAAF]">Riwayat Pemeriksaan</button>
-    </div>
+</div>
 
     <!-- Jadwal Reservasi -->
     <div id="jadwal" class="tab-content">
