@@ -148,12 +148,7 @@
       <span class="mt-2 text-sm font-medium transition-colors duration-300 group-hover:[color:#f08080]">Asuransi</span>
     </div>
 
-    <div class="flex flex-col items-center group cursor-pointer">
-      <div class="w-16 h-16 rounded-full bg-gray-300 flex items-center justify-center text-2xl text-gray-700 transition-all duration-300 group-hover:[background-color:#f08080] group-hover:text-white">
-        <i class="bi bi-file-person"></i>
-      </div>
-      <span class="mt-2 text-sm font-medium transition-colors duration-300 group-hover:[color:#f08080]">Rekam medis</span>
-    </div>
+    
   </div>
 </section>
 
