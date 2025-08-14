@@ -17,6 +17,12 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/navigasi', function () {
+    return view('pasien.navigasi.navigasi-pasien'); // ini cuman nampilin navigasi minta tolong ubahlagi yaa :)
+});
+
+
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
