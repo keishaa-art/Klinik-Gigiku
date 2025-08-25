@@ -57,7 +57,7 @@
                 ];
             @endphp
 
-            @foreach ($treatments as $index => $item)
+            {{-- @foreach ($treatments as $index => $item)
                 <label class="flex items-center gap-3 border-b pb-2 cursor-pointer">
                     <input type="checkbox" class="w-5 h-5 text-[#C04C4C]" 
                            data-name="{{ $item['name'] }}" 
@@ -68,7 +68,7 @@
                         <p class="text-sm text-gray-600">Rp. {{ $item['price'] }}</p>
                     </div>
                 </label>
-            @endforeach
+            @endforeach --}}
         </div>
         <div class="flex justify-end p-4 border-t">
             <button onclick="applySelection()" class="bg-[#C04C4C] text-white px-4 py-2 rounded-lg hover:opacity-90">Selesai</button>
