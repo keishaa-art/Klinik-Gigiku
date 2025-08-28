@@ -20,13 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'nip',
         'role',
-        'alamat',
-        'no_telepon',
-        'spesialis',
-        'tgl_lahir',
-        'jenis_kelamin',
         'email_verification_code',
     ];
 
@@ -61,5 +55,17 @@ class User extends Authenticatable
             'Pasien' => route('pasien.dashboard'),
             default => '/',
         };
+    }
+    public function pasien()
+    {
+        return $this->hasOne(Pasien::class);
+    }
+    public function dokter()
+    {
+        return $this->hasOne(Dokter::class);
+    }
+    public function petugasFarmasi()
+    {
+        return $this->hasOne(PetugasFarmasi::class);
     }
 }
