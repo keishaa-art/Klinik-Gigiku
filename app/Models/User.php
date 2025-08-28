@@ -20,13 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'nip',
         'role',
-        'alamat',
-        'no_telepon',
-        'spesialis',
-        'tgl_lahir',
-        'jenis_kelamin',
         'email_verification_code',
     ];
 
@@ -63,6 +57,7 @@ class User extends Authenticatable
         };
     }
 
+
     public function jadwalPrakteks()
     {
         return $this->hasMany(JadwalPraktek::class);
@@ -76,6 +71,19 @@ class User extends Authenticatable
     public function dokter()
     {
         return $this->hasOne(Dokter::class, 'user_id');
+    }
+  
+    public function pasien()
+    {
+        return $this->hasOne(Pasien::class);
+    }
+    public function dokter()
+    {
+        return $this->hasOne(Dokter::class);
+    }
+    public function petugasFarmasi()
+    {
+        return $this->hasOne(PetugasFarmasi::class);
     }
 
 }

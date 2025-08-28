@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('dokters', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('nip')->unique();
-            $table->string('nama');
-            $table->string('spesialis');
-            $table->string('no_hp')->unique();
-            $table->string('email')->unique();
-            $table->string('alamat');
+            $table->string('spesialis')->nullable();
+            $table->date('tgl_lahir')->nullable();
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
+            $table->string('no_telepon')->nullable();
+            $table->text('alamat')->nullable();
             $table->timestamps();
         });
     }
