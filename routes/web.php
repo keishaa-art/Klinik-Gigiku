@@ -20,6 +20,9 @@ Route::get('/', function () {
 Route::get('/navigasi', function () {
     return view('pasien.navigasi.navigasi-pasien'); // ini cuman nampilin navigasi minta tolong ubahlagi yaa :)
 });
+Route::get('/about', function () {
+    return view('about'); 
+});
 
 
 

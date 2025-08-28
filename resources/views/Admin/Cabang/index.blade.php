@@ -1,3 +1,6 @@
+ @extends('layouts.admin-layout')
+
+ @section('konten')
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,3 +46,4 @@
     </table>
 </body>
 </html>
+@endsection
