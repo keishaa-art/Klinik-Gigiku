@@ -52,8 +52,8 @@ Route::post('/email/verify-otp', function (Request $request) {
         $user->email_verification_code = null;
         $user->save();
 
-        return redirect()->intended($user->redirectTo())
-        ->with('success', 'Email berhasil diverifikasi.');
+        return redirect($user->redirectTo())
+            ->with('success', 'Email berhasil diverifikasi.');
     }
 
     return back()->withErrors(['otp' => 'Kode OTP salah.']);
