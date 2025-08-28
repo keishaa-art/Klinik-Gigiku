@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pasien extends Model
 {
-    protected $table = 'pasien';
-    protected $primaryKey = 'nik';
-    public $incrementing = false; 
-    protected $keyType = 'string';
+    protected $table = 'pasiens';
 
     protected $fillable = [
-        'nik',
-        'no_telepon',
-        'nama_pasien',
+        'user_id',
+        'no_rm',
         'tgl_lahir',
         'jenis_kelamin',
-        'cara_bayar',
+        'no_telepon',
+        'alamat'
     ];
 
-    public $timestamps = false;
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

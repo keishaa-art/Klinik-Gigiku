@@ -38,6 +38,10 @@ class AuthenticatedSessionController extends Controller
             case 'Farmasi':
                 return redirect()->route('farmasi.dashboard');
             case 'Pasien':
+                if (is_null($user->email_verified_at)) {
+                    return redirect()->route('verification.otp.form')
+                        ->with('info', 'Silakan verifikasi email dengan kode OTP.');
+                }
                 return redirect()->route('pasien.dashboard');
             default:
                 Auth::logout();

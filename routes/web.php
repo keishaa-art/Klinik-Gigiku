@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CabangController;
 use App\Http\Controllers\Farmasi\ObatController;
 use App\Http\Controllers\Dokter\DokterController;
+use App\Http\Controllers\Dokter\JadwalPraktekController;
 use App\Http\Controllers\Pasien\PasienController;
 use App\Http\Controllers\Farmasi\FarmasiController;
 use App\Http\Controllers\Admin\PemeriksaanController;
@@ -17,6 +18,15 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/navigasi', function () {
+    return view('pasien.navigasi.navigasi-pasien'); // ini cuman nampilin navigasi minta tolong ubahlagi yaa :)
+});
+Route::get('/about', function () {
+    return view('about'); 
+});
+
+
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -29,15 +39,30 @@ Route::post('/email/verify-otp', function (Request $request) {
     $request->validate([
         'otp' => ['required', 'digits:6'],
     ]);
+
     $user = auth()->user();
+
+    if ($user->role !== 'Pasien') {
+        return match ($user->role) {
+            'Admin'   => redirect()->route('admin.dashboard')->with('info', 'Role ini tidak memerlukan verifikasi email.'),
+            'Dokter'  => redirect()->route('dokter.dashboard')->with('info', 'Role ini tidak memerlukan verifikasi email.'),
+            'Farmasi' => redirect()->route('farmasi.dashboard')->with('info', 'Role ini tidak memerlukan verifikasi email.'),
+            default   => redirect('/')->with('info', 'Role ini tidak memerlukan verifikasi email.'),
+        };
+    }
+
     if ($user->email_verification_code == $request->otp) {
         $user->markEmailAsVerified();
         $user->email_verification_code = null;
         $user->save();
-        return redirect()->intended('/dashboard')->with('success', 'Email berhasil diverifikasi.');
+
+        return redirect($user->redirectTo())
+            ->with('success', 'Email berhasil diverifikasi.');
     }
+
     return back()->withErrors(['otp' => 'Kode OTP salah.']);
 })->middleware(['auth'])->name('verification.otp.submit');
+
 Route::post('/email/resend-otp', function () {
     $user = auth()->user();
     $otp = rand(100000, 999999);
@@ -51,6 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('jadwalpraktek', JadwalPraktekController::class);
 });
 
 //! Admin Routes
@@ -58,12 +84,17 @@ Route::middleware(['auth', 'AdminMiddleware'])->prefix('admin')->name('admin.')-
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('pemeriksaan', PemeriksaanController::class);
     Route::resource('cabang', CabangController::class);
-    
+});
+Route::prefix('admin')->name('Admin.')->middleware(['auth','AdminMiddleware'])->group(function () {
+    Route::resource('jadwalpraktek', JadwalPraktekController::class);
 });
 
 //! Dokter Routes
 Route::middleware(['auth', 'DokterMiddleware'])->prefix('dokter')->name('dokter.')->group(function () {
     Route::get('/', [DokterController::class, 'index'])->name('dashboard');
+});
+Route::prefix('dokter')->name('dokter.')->middleware(['auth','DokterMiddleware'])->group(function () {
+    Route::resource('jadwalpraktek', JadwalPraktekController::class);
 });
 
 //! Farmasi Routes
@@ -73,8 +104,11 @@ Route::middleware(['auth', 'FarmasiMiddleware'])->prefix('farmasi')->name('farma
 });
 
 //! Pasien Routes
-Route::middleware(['auth', 'PasienMiddleware'])->prefix('pasien')->name('pasien.')->group(function () {
+Route::middleware(['auth', 'PasienMiddleware', 'ensure.otp.verified'])->prefix('pasien')->name('pasien.')->group(function () {
     Route::get('/', [PasienController::class, 'index'])->name('dashboard');
 });
 
+
+
 require __DIR__.'/auth.php';
+

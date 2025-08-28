@@ -11,11 +11,18 @@ class dokter extends Model
 
     protected $table = 'dokters';
     protected $fillable = [
+        'user_id',
         'nip',
-        'nama',
         'spesialis',
-        'no_hp',
-        'email',
-        'alamat',
+        'tgl_lahir',
+        'jenis_kelamin',
+        'no_telepon',
+        'alamat'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }
