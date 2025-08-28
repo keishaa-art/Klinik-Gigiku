@@ -17,6 +17,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/navigasi', function () {
     return view('pasien.navigasi.navigasi-pasien'); // ini cuman nampilin navigasi minta tolong ubahlagi yaa :)
 });
@@ -25,6 +26,17 @@ Route::get('/about', function () {
 });
 
 
+
+
+// Route::get('/1', function () {
+//     return view('reservasi');
+// });
+// Route::get('/2', function () {
+//     return view('jadwal');
+// });
+// Route::get('/3', function () {
+//     return view('keluhan');
+// });
 
 
 // Route::get('/dashboard', function () {

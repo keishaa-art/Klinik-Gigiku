@@ -44,11 +44,12 @@
         <input type="hidden" name="tanggal" id="tanggal-hidden">
         <input type="hidden" name="jam" id="jam-hidden">
 
-        <button type="submit"
+        <a href="3"
+        type="submit"
                 id="btn-selanjutnya"
                 class="w-[320px] mb-4 px-6 py-3 rounded-xl bg-gray-400 text-white text-lg text-center transition hover:opacity-80 cursor-not-allowed pointer-events-none">
           Selanjutnya
-        </button>
+      </a>
       </form>
     </div>
   </div>
