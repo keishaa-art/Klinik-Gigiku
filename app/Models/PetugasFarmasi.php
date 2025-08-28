@@ -2,19 +2,21 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pasien extends Model
+class PetugasFarmasi extends Model
 {
-    protected $table = 'pasiens';
+    use HasFactory;
+
+    protected $table = 'petugas_farmasis'; // default sudah sesuai
 
     protected $fillable = [
         'user_id',
-        'no_rm',
-        'tgl_lahir',
-        'jenis_kelamin',
+        'nip',
+        'no_izin',
         'no_telepon',
-        'alamat'
+        'alamat',
     ];
 
     public function user()
