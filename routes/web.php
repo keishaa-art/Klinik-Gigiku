@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CabangController;
 use App\Http\Controllers\Farmasi\ObatController;
 use App\Http\Controllers\Dokter\DokterController;
+use App\Http\Controllers\Dokter\JadwalPraktekController;
 use App\Http\Controllers\Pasien\PasienController;
 use App\Http\Controllers\Farmasi\FarmasiController;
 use App\Http\Controllers\Admin\PemeriksaanController;
@@ -75,6 +76,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::resource('jadwalpraktek', JadwalPraktekController::class);
 });
 
 //! Admin Routes
@@ -83,10 +85,16 @@ Route::middleware(['auth', 'AdminMiddleware'])->prefix('admin')->name('admin.')-
     Route::resource('pemeriksaan', PemeriksaanController::class);
     Route::resource('cabang', CabangController::class);
 });
+Route::prefix('admin')->name('Admin.')->middleware(['auth','AdminMiddleware'])->group(function () {
+    Route::resource('jadwalpraktek', JadwalPraktekController::class);
+});
 
 //! Dokter Routes
 Route::middleware(['auth', 'DokterMiddleware'])->prefix('dokter')->name('dokter.')->group(function () {
     Route::get('/', [DokterController::class, 'index'])->name('dashboard');
+});
+Route::prefix('dokter')->name('dokter.')->middleware(['auth','DokterMiddleware'])->group(function () {
+    Route::resource('jadwalpraktek', JadwalPraktekController::class);
 });
 
 //! Farmasi Routes
@@ -102,4 +110,5 @@ Route::middleware(['auth', 'PasienMiddleware', 'ensure.otp.verified'])->prefix('
 
 
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';
+

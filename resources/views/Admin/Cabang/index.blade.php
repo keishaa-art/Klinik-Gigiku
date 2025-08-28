@@ -22,7 +22,7 @@
         <thead>
             <tr>
                 <th scope="col">No</th>
-                <th scope="col">Nama</th>
+                <th scope="col">Cabang</th>
                 <th scope="col">Alamat</th>
             </tr>
         </thead>
