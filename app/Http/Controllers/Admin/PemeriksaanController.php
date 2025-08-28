@@ -43,7 +43,7 @@ class PemeriksaanController extends Controller
 
         Pemeriksaan::create($validated);
 
-        return redirect()->route('pemeriksaan.index');
+        return redirect()->route('admin.pemeriksaan.index');
     }
 
     /**

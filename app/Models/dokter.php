@@ -19,9 +19,10 @@ class dokter extends Model
         'no_telepon',
         'alamat'
     ];
-    
+
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
 }

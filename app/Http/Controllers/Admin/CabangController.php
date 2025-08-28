@@ -14,7 +14,7 @@ class CabangController extends Controller
     public function index()
     {
         $cabang = Cabang::get();
-        return view('Admin.Cabang.index', compact('cabang')); 
+        return view('admin.cabang.index', compact('cabang')); 
     }
 
     /**
@@ -22,7 +22,7 @@ class CabangController extends Controller
      */
     public function create()
     {
-        return view('Admin.Cabang.create');
+        return view('admin.cabang.create');
     }
 
     /**
@@ -37,7 +37,7 @@ class CabangController extends Controller
 
         Cabang::create($validated);
 
-        return redirect()->route('cabang.index');
+        return redirect()->route('admin.cabang.index');
     }
 
     /**
@@ -54,7 +54,7 @@ class CabangController extends Controller
     public function edit(string $id)
     {
         $cabang = Cabang::findOrFail($id);
-        return view('Admin.Cabang.edit', compact('cabang'));
+        return view('admin.cabang.edit', compact('cabang'));
     }
 
     /**
@@ -70,7 +70,7 @@ class CabangController extends Controller
         $cabang = Cabang::findOrFail($id);
         $cabang->update($validated);
 
-        return redirect()->route('cabang.index');
+        return redirect()->route('admin.cabang.index');
     }
 
     /**
@@ -79,6 +79,6 @@ class CabangController extends Controller
     public function destroy(cabang $cabang)
     {
         $cabang->delete();
-        return redirect()->route('cabang.index');
+        return redirect()->route('admin.cabang.index');
     }
 }
