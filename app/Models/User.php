@@ -62,4 +62,20 @@ class User extends Authenticatable
             default => '/',
         };
     }
+
+    public function jadwalPrakteks()
+    {
+        return $this->hasMany(JadwalPraktek::class);
+    }
+
+    public function cabang()
+    {
+        return $this->belongsTo(Cabang::class, 'cabang_id');
+    }
+
+    public function dokter()
+    {
+        return $this->hasOne(Dokter::class, 'user_id');
+    }
+
 }

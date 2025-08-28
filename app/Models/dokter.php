@@ -18,4 +18,10 @@ class dokter extends Model
         'email',
         'alamat',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 }
