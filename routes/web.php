@@ -9,23 +9,36 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CabangController;
 use App\Http\Controllers\Farmasi\ObatController;
 use App\Http\Controllers\Dokter\DokterController;
-use App\Http\Controllers\Dokter\JadwalPraktekController;
 use App\Http\Controllers\Pasien\PasienController;
 use App\Http\Controllers\Farmasi\FarmasiController;
+use App\Http\Controllers\Admin\DataDokterController;
 use App\Http\Controllers\Admin\PemeriksaanController;
+use App\Http\Controllers\Dokter\JadwalPraktekController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/navigasi', function () {
     return view('pasien.navigasi.navigasi-pasien'); // ini cuman nampilin navigasi minta tolong ubahlagi yaa :)
 });
 Route::get('/about', function () {
-    return view('about'); 
+    return view('about');
 });
 
 
+
+
+Route::get('/1', function () {
+    return view('reservasi');
+});
+Route::get('/2', function () {
+    return view('jadwal');
+});
+Route::get('/3', function () {
+    return view('keluhan');
+});
 
 
 // Route::get('/dashboard', function () {
@@ -52,13 +65,19 @@ Route::post('/email/verify-otp', function (Request $request) {
     }
 
     if ($user->email_verification_code == $request->otp) {
+        if ($user->email_verification_expires_at && now()->gt($user->email_verification_expires_at)) {
+            return back()->withErrors(['otp' => 'Kode OTP sudah kadaluarsa. Silakan kirim ulang.']);
+        }
+
         $user->markEmailAsVerified();
         $user->email_verification_code = null;
+        $user->email_verification_expires_at = null;
         $user->save();
 
         return redirect($user->redirectTo())
             ->with('success', 'Email berhasil diverifikasi.');
     }
+
 
     return back()->withErrors(['otp' => 'Kode OTP salah.']);
 })->middleware(['auth'])->name('verification.otp.submit');
@@ -67,6 +86,7 @@ Route::post('/email/resend-otp', function () {
     $user = auth()->user();
     $otp = rand(100000, 999999);
     $user->email_verification_code = $otp;
+    $user->email_verification_expires_at = now()->addSeconds(30);
     $user->save();
     Mail::to($user->email)->send(new EmailVerificationOtp($otp));
     return back()->with('status', 'Kode OTP telah dikirim ulang.');
@@ -84,17 +104,12 @@ Route::middleware(['auth', 'AdminMiddleware'])->prefix('admin')->name('admin.')-
     Route::get('/', [AdminController::class, 'index'])->name('dashboard');
     Route::resource('pemeriksaan', PemeriksaanController::class);
     Route::resource('cabang', CabangController::class);
-});
-Route::prefix('admin')->name('Admin.')->middleware(['auth','AdminMiddleware'])->group(function () {
-    Route::resource('jadwalpraktek', JadwalPraktekController::class);
+    Route::resource('dokter', DataDokterController::class);
 });
 
 //! Dokter Routes
 Route::middleware(['auth', 'DokterMiddleware'])->prefix('dokter')->name('dokter.')->group(function () {
     Route::get('/', [DokterController::class, 'index'])->name('dashboard');
-});
-Route::prefix('dokter')->name('dokter.')->middleware(['auth','DokterMiddleware'])->group(function () {
-    Route::resource('jadwalpraktek', JadwalPraktekController::class);
 });
 
 //! Farmasi Routes
@@ -110,5 +125,4 @@ Route::middleware(['auth', 'PasienMiddleware', 'ensure.otp.verified'])->prefix('
 
 
 
-require __DIR__.'/auth.php';
-
+require __DIR__ . '/auth.php';
