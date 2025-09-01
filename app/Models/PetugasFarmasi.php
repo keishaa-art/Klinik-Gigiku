@@ -13,6 +13,7 @@ class PetugasFarmasi extends Model
 
     protected $fillable = [
         'user_id',
+        'name',
         'nip',
         'no_izin',
         'no_telepon',

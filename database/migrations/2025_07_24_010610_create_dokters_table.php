@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('dokters', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('name');
             $table->string('nip')->unique();
             $table->string('spesialis')->nullable();
             $table->date('tgl_lahir')->nullable();

@@ -34,8 +34,8 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'no_telepon' => ['nullable', 'regex:/^[0-9\+\-\(\)\s]+$/', 'max:15'],
+            'password' => ['required', 'confirmed', Rules\Password::min(8)],
+            'no_telepon' => ['nullable', 'regex:/^(?:\+62|0)8[1-9][0-9]{6,10}$/', 'min:11', 'max:15'],
             'alamat' => ['nullable', 'string', 'max:255'],
             'tgl_lahir' => ['nullable', 'date'],
             'jenis_kelamin' => ['nullable', 'string', 'in:Laki-laki,Perempuan'],
@@ -54,6 +54,7 @@ class RegisteredUserController extends Controller
         ]);
 
         $user->pasien()->create([
+            'name' => $request->name,
             'no_rm' => $no_rm,
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,

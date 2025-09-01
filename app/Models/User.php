@@ -17,7 +17,6 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
         'role',
@@ -68,10 +67,10 @@ class User extends Authenticatable
         return $this->belongsTo(Cabang::class, 'cabang_id');
     }
 
-    public function dokter()
-    {
-        return $this->hasOne(Dokter::class, 'user_id');
-    }
+    // public function dokter()
+    // {
+    //     return $this->hasOne(Dokter::class, 'user_id');
+    // }
   
     public function pasien()
     {

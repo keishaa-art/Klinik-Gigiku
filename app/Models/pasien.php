@@ -10,6 +10,7 @@ class Pasien extends Model
 
     protected $fillable = [
         'user_id',
+        'name',
         'no_rm',
         'tgl_lahir',
         'jenis_kelamin',
