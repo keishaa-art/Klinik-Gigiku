@@ -33,37 +33,39 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'role' => ['required', 'string', 'in:Pasien'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
+            'password' => ['required', 'confirmed', Rules\Password::min(8)],
+            'no_telepon' => ['nullable', 'regex:/^(?:\+62|0)8[1-9][0-9]{6,10}$/', 'min:11', 'max:15'],
             'alamat' => ['nullable', 'string', 'max:255'],
-            // 'no_telepon' => ['nullable', 'string', 'max:15'],
-            'no_telepon' => ['nullable', 'regex:/^[0-9\+\-\(\)\s]+$/', 'max:15'],
-            'spesialis' => ['nullable', 'string', 'max:50'],
             'tgl_lahir' => ['nullable', 'date'],
             'jenis_kelamin' => ['nullable', 'string', 'in:Laki-laki,Perempuan'],
         ]);
 
         $otp = rand(100000, 999999);
-        $nip = 'PSN' . rand(1000, 9999);
+        $no_rm = 'PSN' . rand(1000, 9999);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'nip' => $nip,
             'role' => 'Pasien',
-            'alamat' => $request->alamat,
-            'no_telepon' => $request->no_telepon,
-            'spesialis' => $request->spesialis,
+            'email_verification_code' => $otp,
+            'email_verified_at' => null,
+        ]);
+
+        $user->pasien()->create([
+            'name' => $request->name,
+            'no_rm' => $no_rm,
             'tgl_lahir' => $request->tgl_lahir,
             'jenis_kelamin' => $request->jenis_kelamin,
-            'email_verification_code' => $otp,
+            'no_telepon' => $request->no_telepon,
+            'alamat' => $request->alamat,
         ]);
         // event(new Registered($user));
 
         Auth::login($user);
 
         Mail::to($user->email)->send(new EmailVerificationOtp($otp));
-         return redirect()->route('verification.otp.form');
+        return redirect()->route('verification.otp.form');
     }
 }

@@ -17,16 +17,9 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
-        'nip',
         'role',
-        'alamat',
-        'no_telepon',
-        'spesialis',
-        'tgl_lahir',
-        'jenis_kelamin',
         'email_verification_code',
     ];
 
@@ -62,4 +55,34 @@ class User extends Authenticatable
             default => '/',
         };
     }
+
+
+    public function jadwalPrakteks()
+    {
+        return $this->hasMany(JadwalPraktek::class);
+    }
+
+    public function cabang()
+    {
+        return $this->belongsTo(Cabang::class, 'cabang_id');
+    }
+
+    // public function dokter()
+    // {
+    //     return $this->hasOne(Dokter::class, 'user_id');
+    // }
+  
+    public function pasien()
+    {
+        return $this->hasOne(Pasien::class);
+    }
+    public function dokter()
+    {
+        return $this->hasOne(Dokter::class);
+    }
+    public function petugasFarmasi()
+    {
+        return $this->hasOne(PetugasFarmasi::class);
+    }
+
 }

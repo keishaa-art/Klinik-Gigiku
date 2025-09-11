@@ -13,11 +13,13 @@ return new class extends Migration
     {
         Schema::create('pasiens', function (Blueprint $table) {
             $table->id();
-            $table->string('no_telepon');
-            $table->string('nama_pasien');
-            $table->date('tgl_lahir');
-            $table->enum('jenis_kelamin', ['laki-laki', 'perempuan']);
-            $table->string('cara_bayar');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->string('no_rm')->unique();
+            $table->date('tgl_lahir')->nullable();
+            $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan'])->nullable();
+            $table->string('no_telepon')->nullable();
+            $table->text('alamat')->nullable();
             $table->timestamps();
         });
     }
